@@ -1,15 +1,56 @@
 <html>
     <head>
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
 
     <body>
-        <form>
-            City:<br>
-            <input type="text" name="city"><br>
-            Country:<br>
-            <input type="text" name="country"><br>
-            <button> Submit </button>
-        </form>
+        <div class="container">
+            <h3> Weather App </h3>
+            <br>
+            <p> Please enter your city and country code (e.g Melbourne, AU) </p>
+            City
+            <input type="text" id="city"><br><br>
+            Country
+            <input type="text" id="country"><br><br>
+            API Key
+            <input type="text" id="api"><br><br>
+            <button onclick="submitForm()" class="btn btn-primary"> Submit </button>
+            <p id="errors"></p>
+            <p id="messages"></p>
+        </div>
     </body>
 </html>
+<script>
+ function submitForm() {
+   document.getElementById('errors').innerHTML = ""
+   document.getElementById('messages').innerHTML = ""
+   const city = document.getElementById('city').value
+   const country = document.getElementById('country').value
+   const api = document.getElementById('api').value
+   let errors = []
+   if (!city) {
+    errors.push("You need to include a city")
+   }
+   if (!country) {
+    errors.push("You need to include a country")
+   }
+   if (!api) {
+    errors.push("You need to include an api key")
+   }
+   if (errors.length > 0) {
+    return document.getElementById('errors').innerHTML = errors.join('<br>')
+   }
+   axios.get(`/api/weather?city=${city}&country=${country}&api=${api}`)
+    .then(response => {
+    const message = response.data
+    document.getElementById('messages').innerHTML = message
+    })
+    .catch(error => {
+    document.getElementById('messages').innerHTML = 'Something went wrong, please try again'
+    })
+ }
+</script>
