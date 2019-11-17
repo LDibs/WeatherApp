@@ -49,11 +49,14 @@ const verifyApi = (request, response, next) => {
 }
 
 const verifyLocation = (request, response, next) => {
-  const city = request.query.city;
-  const country = request.query.country;
+  let city = request.query.city;
+  let country = request.query.country;
   if(!city || !country) {
     return response.send('Missing params');
   }
+  country = country.toUpperCase();
+  city = city.charAt(0).toUpperCase() + city.slice(1);
+
   for (let i = 0; i < cities.length; i++) {
     console.log(cities[i].name);
     if (cities[i].country === country) {
