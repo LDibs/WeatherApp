@@ -12,3 +12,5 @@ app.listen(port, () => {
   app.use(cors());
   app.use('/', require('./routes'));
 });
+
+module.exports = app;
