@@ -32,6 +32,8 @@ A project to deliver a description of the users local weather by Laurence Dibah
 
 ## Start the app
 
+** Running this from a strict network? Try hotspotting to your phone first! **
+
     $ node index.js
 
 ## Enter the below in your browser address bar
