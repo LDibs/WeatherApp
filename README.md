@@ -13,6 +13,14 @@ A project to deliver a description of the users local weather by Laurence Dibah
 
     $ cd weatherapp
 
+## Create a '.env' file
+
+    $ touch .env
+
+## Create new/using existing OpenWeather account at 'https://openweathermap.org/' and paste your API key into the .env file as below
+
+    API_KEY=xxxxxxxxxxxxxxxxxxxxxx
+
 ## Install the required npm packages
 
     $ npm install
