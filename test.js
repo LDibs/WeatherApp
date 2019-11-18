@@ -1,5 +1,4 @@
 const app = require('./index');
-const apiKeys = require('./routes/api/apiKeys')
 const request = require('supertest');
 
 it("should get the homepage", function(done){
@@ -25,6 +24,28 @@ it("it should respond with weather condition", function(done){
   .get('/api/weather?city=melbourne&country=au&api=261864a9-68bf-4a75-811b-fd6d134da049')
   .expect(200)
   .expect(res => res.text.includes('Report'))
+  .end(function(err, res) {
+    if (err) throw err;
+    done()
+  });
+});
+
+it("it should respond missing params", function(done){
+  request(app)
+  .get('/api/weather?city=melbourne&country=&api=261864a9-68bf-4a75-811b-fd6d134da049')
+  .expect(200)
+  .expect('Missing params')
+  .end(function(err, res) {
+    if (err) throw err;
+    done()
+  });
+});
+
+it("it should respond missing API key", function(done){
+  request(app)
+  .get('/api/weather?city=melbourne&country=au&api=')
+  .expect(200)
+  .expect('Missing API Key')
   .end(function(err, res) {
     if (err) throw err;
     done()
